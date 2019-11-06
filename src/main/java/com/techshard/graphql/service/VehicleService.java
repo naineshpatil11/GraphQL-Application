@@ -1,18 +1,21 @@
 package com.techshard.graphql.service;
 
 import com.techshard.graphql.dao.entity.Vehicle;
+import com.techshard.graphql.dao.repository.EngineerRepository;
 import com.techshard.graphql.dao.repository.VehicleRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class VehicleService {
-
+	@Autowired
+	private EngineerRepository engineerRepository;
     private final VehicleRepository vehicleRepository ;
 
     public VehicleService(final VehicleRepository vehicleRepository) {
@@ -20,7 +23,7 @@ public class VehicleService {
     }
 
     @Transactional
-    public Vehicle createVehicle(final String type,final String modelCode, final String brandName, final String launchDate) {
+    public Vehicle createVehicle( String type,String modelCode,String brandName,String launchDate) {
         final Vehicle vehicle = new Vehicle();
         vehicle.setType(type);
         vehicle.setModelCode(modelCode);
@@ -28,29 +31,30 @@ public class VehicleService {
         vehicle.setLaunchDate(LocalDate.parse(launchDate));
         return this.vehicleRepository.save(vehicle);
     }
-    
-//    @Transactional
-//    public Vehicle updateVehicle(String type, String modelCode, String brandName, String launchDate) {
-//    	Vehicle vehicle = new Vehicle();
-//    	vehicle.setType(type);
-//    	vehicle
-//    	return null;
-//	}
+ 
     @Transactional
-    public Vehicle deleteVehicle(String type) {
-    	return this.deleteVehicle(type); 
+    public String deleteVehicle(int id) {
+    	vehicleRepository.deleteById(id);
+    	return "Deleted..";	
     }
+  @Transactional
+  public Vehicle updateVehicle(int id,String type, String modelCode, String brandName, String launchDate) {
+  	Vehicle vehicle = new Vehicle();
+  	vehicle.setType(type);
+  	vehicle.setModelCode(modelCode);
+  	vehicle.setBrandName(brandName);
+  	vehicle.setLaunchDate(LocalDate.parse(launchDate));
+  	return this.vehicleRepository.save(vehicle);
+	}
     
     @Transactional
-    public List<Vehicle> getAllVehicles(final int count) {
-        return this.vehicleRepository.findAll().stream().limit(count).collect(Collectors.toList());
+    public List<Vehicle> getAllVehicles() {
+        return this.vehicleRepository.findAll();
     }
 
     @Transactional
     public Optional<Vehicle> getVehicle(final int id) {
         return this.vehicleRepository.findById(id);
     }
-
-	
-	
+ 
 }

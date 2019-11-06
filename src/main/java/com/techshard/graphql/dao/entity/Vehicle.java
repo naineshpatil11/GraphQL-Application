@@ -38,7 +38,7 @@ public class Vehicle implements Serializable {
     @Column(name = "launch_date")
     private LocalDate launchDate;
 
-    private transient  String formattedDate;
+//    private transient  String formattedDate;
 
     public int getId() {
 		return id;
@@ -80,14 +80,14 @@ public class Vehicle implements Serializable {
 		this.launchDate = launchDate;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+//	public static long getSerialversionuid() {
+//		return serialVersionUID;
+//	}
 
-	public void setFormattedDate(String formattedDate) {
-		this.formattedDate = formattedDate;
-	}
-    public String getFormattedDate() {
-        return getLaunchDate().toString();
-    }
+//	public void setFormattedDate(String formattedDate) {
+//		this.formattedDate = formattedDate;
+//	}
+//    public String getFormattedDate() {
+//        return getLaunchDate().toString();
+//    }
 }

@@ -1,17 +1,78 @@
+schema{
+	query: Query
+	mutation: Mutation
+}
+
 type Vehicle {
 	id: ID!,
 	type: String,
 	modelCode: String,
 	brandName: String,
 	launchDate: String
+	
+}
+type HigherEngineer{
+	id: ID,
+	name: String,
+	email: String,
+	collageName: String,
+	higherDate: String,
+	higherCity: String,
+	mobileNumber: String,
+	degree: String
 }
 
+type FellowshipEngineers{
+	id: ID,
+	name: String,
+	email: String,
+	collageName: String,
+	higherDate: String,
+	higherCity: String,
+	mobileNumber: String,
+	degree: String,
+	higherLab: String
+	
+	
+}
+
+
+type BankDetails{
+	id:ID,
+	name: String,
+	accountNumber: String,
+	ifscCode: String,
+	panNumber: String,
+	addharNumber: String
+}
 type Query {
-	vehicles(count: Int):[Vehicle]
+	vehicles:[Vehicle]
 	vehicle(id: ID):Vehicle
+	
+	engineers:[HigherEngineer]
+	engineer(id:ID):HigherEngineer
+	
+	fellowshipEngineers:[FellowshipEngineers]
+	fellowshipEngineer(id:ID):FellowshipEngineers
+	
+	getAllBankDetails:[BankDetails]
+	getBankDetails(id:ID):BankDetails
+	 
+	totalFellowshipEngineers:String
+	
+	 
+	
+	 
 }
 
 type Mutation {
-	createVehicle(type: String!, modelCode: String!, brandName: String, launchDate: String):Vehicle
-	 delete(type: String):Vehicle
+	 createVehicle(type: String!, modelCode: String!, brandName: String, launchDate: String):Vehicle
+	 deleteVehicle(id: ID): String
+	 updateVehicle(id: ID, type: String!, modelCode: String!, brandName: String, launchDate: String):Vehicle
+ 
+ 	 addfelloEngineers(collageName: String,degree: String, email:String,higherCity: String,higherDate: String,higherLab:String,mobileNumber: String,name:String):FellowshipEngineers
+
+	addBankDetails(name: String,accountNumber: String,ifscCode: String,panNumber: String,addharNumber: String):BankDetails
 }
+ 
+
